@@ -1,11 +1,10 @@
 plugins {
-    id "groovy"
     id "com.github.johnrengelman.shadow" version "6.0.0"
     id "io.micronaut.application" version '1.0.3'
 }
 
 version "0.1"
-group "test.mn2.openapi"
+group "test.mn2.openapi.java"
 
 repositories {
     mavenCentral()
@@ -14,18 +13,18 @@ repositories {
 
 micronaut {
     runtime "netty"
-    testRuntime "spock2"
+    testRuntime "junit5"
     processing {
         incremental true
-        annotations "test.mn2.openapi.*"
+        annotations "test.mn2.openapi.java.*"
     }
 }
 
 dependencies {
-    compileOnly("io.micronaut.data:micronaut-data-processor")
-    compileOnly("io.micronaut.openapi:micronaut-openapi")
+    annotationProcessor("io.micronaut.data:micronaut-data-processor")
+    annotationProcessor("io.micronaut.openapi:micronaut-openapi")
     implementation("io.micronaut:micronaut-validation")
-    implementation("io.micronaut.groovy:micronaut-runtime-groovy")
+    implementation("io.micronaut:micronaut-runtime")
     implementation("io.micronaut:micronaut-http-client")
     implementation("io.swagger.core.v3:swagger-annotations")
     implementation("io.micronaut.sql:micronaut-jdbc-tomcat")
@@ -36,7 +35,7 @@ dependencies {
     runtimeOnly("com.h2database:h2")
 }
 
-mainClassName = "test.mn2.openapi.Application"
+mainClassName = "test.mn2.openapi.java.Application"
 java {
     sourceCompatibility = JavaVersion.toVersion('1.8')
     targetCompatibility = JavaVersion.toVersion('1.8')
